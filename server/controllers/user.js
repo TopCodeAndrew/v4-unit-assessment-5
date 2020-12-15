@@ -6,7 +6,8 @@ module.exports = {
         const { username, password } = req.body
         const profilePic = `https://robohash.org/${username}.png`
 
-        const [existingUser] = await db.find_user_by_username([username])
+        const [existingUser] = await db.user.find_user_by_username([username])
+
 
         if (existingUser) {
             return res.status(409).send('User already exists')
@@ -15,7 +16,8 @@ module.exports = {
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
 
-        const [newUser] = await db.create_user([username, hash, profilePic])
+        console.log(username, password)
+        const [newUser] = await db.user.create_user([username, hash, profilePic])
 
         req.session.user = newUser
 
@@ -27,7 +29,7 @@ module.exports = {
 
         const { username, password } = req.body
 
-        const [existingUser] = await db.find_user_by_username([username])
+        const [existingUser] = await db.user.find_user_by_username([username])
 
         if (!existingUser) {
             return res.status(404).send('User does not exist')
@@ -47,7 +49,7 @@ module.exports = {
     },
 
     logout: async (req, res) => {
-        req.session.detroy()
+        req.session.destroy()
         res.sendStatus(200)
     },
 
