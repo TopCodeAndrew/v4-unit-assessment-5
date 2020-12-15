@@ -6,6 +6,7 @@ const express = require('express'),
     postCtrl = require('./controllers/posts')
 
 
+
 const app = express();
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
