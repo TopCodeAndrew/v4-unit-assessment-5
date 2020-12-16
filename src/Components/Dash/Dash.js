@@ -21,6 +21,7 @@ class Dash extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.grabPosts();
   }
 
