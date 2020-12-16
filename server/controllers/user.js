@@ -28,6 +28,7 @@ module.exports = {
         const db = req.app.get('db')
 
         const { username, password } = req.body
+        // console.log(username, password)
 
         const [existingUser] = await db.user.find_user_by_username([username])
 
@@ -53,7 +54,7 @@ module.exports = {
         res.sendStatus(200)
     },
 
-    getUser: async (req, res, next) => {
+    getUser: async (req, res) => {
         if (req.session.user) {
             res.status(200).send(req.session.user)
         } else {
